@@ -1,13 +1,26 @@
 Attribute VB_Name = "modPE"
 Option Explicit
 
-'2018 - 2021
+'2018 - 2022
 'Author SERBice
 'serbice [ at ] serbice [ dot ] net
 'Basado en documentacion de Microsoft (https://docs.microsoft.com/en-us/windows/win32/debug/pe-format)
 
-'Por favor, si este codigo le ha servido hagamelo saber. 
+'El presente codigo da informacion sobre archivos binarios/ejecutables de Microsoft (COFF, MZ, MZ PE, etc)
+'Por favor, si este codigo le ha servido hagamelo saber.
 'Si porta este codigo a otro lenguaje por favor publiquelo para que otros puedan utilizarlo.
+
+
+
+'Modo de uso:
+' Llamar a la funcion ReadPE, los parametros serán:
+    ' path (String): Ruta del archivo a analizar
+    ' info (ver tipo PE_Info)(variable por referencia, puntero)
+
+'La funcion devolvera true (exitoso) o false (error/problema)
+'adicionalmente en la variable info se obtendra el detalle del archivo
+'Al final de este modulo hay una muestra de implementacion.
+    
 
 Public Enum ImageSignatureTypes
     IMAGE_DOS_SIGNATURE = &H5A4D     ''\\ MZ
@@ -199,8 +212,7 @@ Private Type IMAGE_OPTIONAL_HEADER_NT_PE
 End Type
 
 Private Type IMAGE_OPTIONAL_HEADER_NT_PE_Plus
-    ImageBaseA As Long
-    ImageBaseB As Long
+    ImageBase As Double
     SectionAlignment As Long
     FileAlignment As Long
     MajorOperatingSystemVersion As Integer
@@ -215,14 +227,10 @@ Private Type IMAGE_OPTIONAL_HEADER_NT_PE_Plus
     CheckSum As Long
     Subsystem As Integer
     DllCharacteristics As Integer
-    SizeOfStackReserveA As Long
-    SizeOfStackReserveB As Long
-    SizeOfStackCommitA As Long
-    SizeOfStackCommitB As Long
-    SizeOfHeapReserveA As Long
-    SizeOfHeapReserveB As Long
-    SizeOfHeapCommitA As Long
-    SizeOfHeapCommitB As Long
+    SizeOfStackReserve As Double
+    SizeOfStackCommit As Double
+    SizeOfHeapReserve As Double
+    SizeOfHeapCommit As Double
     LoaderFlags As Long
     NumberOfRvaAndSizes As Long
     DataDirectory(0 To 15) As IMAGE_DATA_DIRECTORY
@@ -527,10 +535,10 @@ Sub main()
   Dim mistr As String
 
   path = Array("c:\tests\test1.exe", _
-          c:\tests\test2.dll", _
-          c:\tests\test3.ocx", _
-          c:\tests\test4.bin", _
-          c:\tests\test5.com")
+          "c:\tests\test2.dll", _
+          "c:\tests\test3.ocx", _
+          "c:\tests\test4.bin", _
+          "c:\tests\test5.com")
 
   For i = 0 To UBound(path)
       mistr = mistr & path(i) & vbCrLf
