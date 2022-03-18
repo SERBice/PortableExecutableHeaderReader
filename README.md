@@ -2,7 +2,7 @@
 Lee las cabeceras de un archivo binario de MS-DOS / Windows (tambien OS/2) y determina sus caracteristicas.
 
 Programado en 2018, Publicado en 2021
-Autor SERBice (serbice [ at ] serbice [ dot ] net)
+Autor SERBice (serbice [ 4t ] serbice [ d0t ] net)
 
 Basado en documentacion de Microsoft (https://docs.microsoft.com/en-us/windows/win32/debug/pe-format)
 
