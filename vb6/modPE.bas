@@ -3,7 +3,7 @@ Option Explicit
 
 '2018 - 2022
 'Author SERBice
-'serbice [ at ] serbice [ dot ] net
+'
 'Basado en documentacion de Microsoft (https://docs.microsoft.com/en-us/windows/win32/debug/pe-format)
 
 'El presente codigo da informacion sobre archivos binarios/ejecutables de Microsoft (COFF, MZ, MZ PE, etc)
